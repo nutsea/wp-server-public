@@ -1,0 +1,23 @@
+const Router = require('express')
+const router = new Router()
+const orderController = require('../controllers/OrderController')
+const authMiddleware = require('../middleware/authMiddleware')
+const adminMiddleware = require('../middleware/adminMiddleware')
+
+router.post('/', authMiddleware, orderController.create)
+router.post('/byadmin', adminMiddleware, orderController.createByAdmin)
+router.get('/in', authMiddleware, orderController.getIn)
+router.get('/', authMiddleware, orderController.getAll)
+router.get('/one', authMiddleware, orderController.getOne)
+router.get('/client', authMiddleware, orderController.getClientOrders)
+router.get('/user', adminMiddleware, orderController.getUserOrders)
+router.get('/items', authMiddleware, orderController.getOrderItems)
+router.get('/report', authMiddleware, orderController.getOrderReport)
+router.get('/photos', adminMiddleware, orderController.getOrderPhotos)
+router.put('/status', adminMiddleware, orderController.updateStatus)
+router.put('/items', adminMiddleware, orderController.updateOrderItems)
+router.put('/update', adminMiddleware, orderController.updateOrder)
+router.post('/photo', adminMiddleware, orderController.setOrderPhoto)
+router.post('/itemtoorder', adminMiddleware, orderController.addItemToOrder)
+
+module.exports = router
